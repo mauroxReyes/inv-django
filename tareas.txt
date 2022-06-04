@@ -1,0 +1,2 @@
+transformar cliente en trabajador, agregar campo detalle a los productos, 
+editar la factura 
