@@ -1,2 +1,3 @@
 python manage.py runserver  // para correr el servidor
 url para acceder al admin de base de datos http://127.0.0.1:8000/admin/login/?next=/admin/ los usuarios estan en el archivo de superusuario
+python manage.py makemigrations //para crear las migraciones de los modelos correspondientes
