@@ -45,6 +45,8 @@ class Producto(models.Model):
     disponible = models.IntegerField(null=True)
     categoria = models.CharField(max_length=20,choices=decisiones)
     tiene_iva = models.BooleanField(null=True)
+    #modelo = models.CharField(max_length=100)
+    #serial = models.CharField(max_length=100)
 
     @classmethod
     def numeroRegistrados(self):
@@ -113,6 +115,7 @@ class Cliente(models.Model):
     telefono2 = models.CharField(max_length=20,null=True)
     correo = models.CharField(max_length=100)
     correo2 = models.CharField(max_length=100,null=True)
+    #cargo = models.CharField(max_length=100,null=True)
 
     @classmethod
     def numeroRegistrados(self):
