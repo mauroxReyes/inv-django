@@ -373,8 +373,9 @@ class AgregarProducto(LoginRequiredMixin, View):
             categoria = form.cleaned_data['categoria']
             tiene_iva = form.cleaned_data['tiene_iva']
             disponible = form.cleaned_data['disponible']
-
-            prod = Producto(descripcion=descripcion,precio=precio,categoria=categoria,tiene_iva=tiene_iva,disponible=disponible)
+            modelo=form.cleaned_data['modelo']
+            serial=form.cleaned_data['serial']
+            prod = Producto(descripcion=descripcion,precio=precio,categoria=categoria,tiene_iva=tiene_iva,disponible=disponible,modelo=modelo,serial=serial)
             prod.save()
             
             form = ProductoFormulario()
@@ -485,6 +486,8 @@ class EditarProducto(LoginRequiredMixin, View):
             categoria = form.cleaned_data['categoria']
             tiene_iva = form.cleaned_data['tiene_iva']
             disponible = form.cleaned_data['disponible']
+            modelo = form.cleaned_data['modelo']
+            serial = form.cleaned_data['serial']
 
             prod = Producto.objects.get(id=p)
             prod.descripcion = descripcion
@@ -492,6 +495,8 @@ class EditarProducto(LoginRequiredMixin, View):
             prod.categoria = categoria
             prod.tiene_iva = tiene_iva
             prod.disponible=disponible
+            prod.serial=serial
+            prod.modelo=modelo
             prod.save()
             form = ProductoFormulario(instance=prod)
             messages.success(request, 'Actualizado exitosamente el producto de ID %s.' % p)
@@ -551,10 +556,11 @@ class AgregarCliente(LoginRequiredMixin, View):
             correo = form.cleaned_data['correo']
             telefono2 = form.cleaned_data['telefono2']
             correo2 = form.cleaned_data['correo2']
+            cargo = form.cleaned_data['cargo']
 
             cliente = Cliente(cedula=cedula,nombre=nombre,apellido=apellido,
                 direccion=direccion,nacimiento=nacimiento,telefono=telefono,
-                correo=correo,telefono2=telefono2,correo2=correo2)
+                correo=correo,telefono2=telefono2,correo2=correo2,cargo=cargo)
             cliente.save()
             form = ClienteFormulario()
 
@@ -669,6 +675,8 @@ class EditarCliente(LoginRequiredMixin, View):
             correo = form.cleaned_data['correo']
             telefono2 = form.cleaned_data['telefono2']
             correo2 = form.cleaned_data['correo2']
+            cargo = form.cleaned_data['cargo']
+
 
             cliente.cedula = cedula
             cliente.nombre = nombre
@@ -679,6 +687,7 @@ class EditarCliente(LoginRequiredMixin, View):
             cliente.correo = correo
             cliente.telefono2 = telefono2
             cliente.correo2 = correo2
+            cliente.cargo=cargo
             cliente.save()
             form = ClienteFormulario(instance=cliente)
 

@@ -26,27 +26,30 @@ class LoginFormulario(forms.Form):
 class ProductoFormulario(forms.ModelForm):
     precio = forms.DecimalField(
         min_value = 0,
-        label = 'Precio',
+        label = '',
         widget = forms.NumberInput(
         attrs={'placeholder': 'Precio del producto',
-        'id':'precio','class':'form-control'}),
+        'id':'precio','class':'form-control','value':'1','style':'display:none'}),
         )
     class Meta:
         model = Producto
-        fields = ['descripcion','precio',"disponible",'categoria','tiene_iva']
+        fields = ['descripcion','precio',"disponible",'categoria','tiene_iva','modelo','serial']
         labels = {
         'descripcion': 'Nombre',
-        'tiene_iva': 'Incluye IVA?',
-        'disponible':'unidades'
+        'disponible':'unidades',
+        'tiene_iva':''
         }
         widgets = {
         'disponible':forms.NumberInput(
         attrs={'placeholder': 'Unidades',
         'id':'disponible','class':'form-control'}),
         'descripcion': forms.TextInput(attrs={'placeholder': 'Nombre del producto',
-        'id':'descripcion','class':'form-control'} ),
+        'id':'descripcion','class':'form-control'}),
+        'modelo': forms.TextInput(attrs={'placeholder': 'Modelo',
+        'id':'modelo','class':'form-control'}),'serial': forms.TextInput(attrs={'placeholder': 'Serial',
+        'id':'serial','class':'form-control'}),
         'categoria': forms.Select(attrs={'class':'form-control','id':'categoria'}),
-        'tiene_iva': forms.CheckboxInput(attrs={'class':'checkbox rounded','id':'tiene_iva'}) 
+        'tiene_iva': forms.CheckboxInput(attrs={'class':' ','id':'tiene_iva','style':'display:none'}) 
         }
 
 class ImportarProductosFormulario(forms.Form):
@@ -111,6 +114,7 @@ class ClienteFormulario(forms.ModelForm):
         'id':'correo2','class':'form-control'}),
         )
 
+
     tipoCedula = forms.CharField(
         label="Tipo de cedula",
         max_length=2,
@@ -122,25 +126,28 @@ class ClienteFormulario(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['tipoCedula','cedula','nombre','apellido','direccion','nacimiento','telefono','correo','telefono2','correo2']
+        fields = ['tipoCedula','cedula','nombre','apellido','direccion','nacimiento','telefono','correo','telefono2','correo2','cargo']
         labels = {
-        'cedula': 'Cedula del cliente',
-        'nombre': 'Nombre del cliente',
-        'apellido': 'Apellido del cliente',
-        'direccion': 'Direccion del cliente',
-        'nacimiento': 'Fecha de nacimiento del cliente',
-        'telefono': 'Numero telefonico del cliente',
-        'correo': 'Correo electronico del cliente',
+        'cedula': 'Cedula del trabajador',
+        'nombre': 'Nombre del trabajador',
+        'apellido': 'Apellido del trabajador',
+        'direccion': 'Direccion del trabajador',
+        'nacimiento': 'Fecha de nacimiento del trabajador',
+        'telefono': 'Numero telefonico del trabajador',
+        'correo': 'Correo electronico del trabajador',
         'telefono2': 'Segundo numero telefonico',
-        'correo2': 'Segundo correo electronico'
+        'correo2': 'Segundo correo electronico',
+        'cargo':'Cargo'
         }
         widgets = {
-        'cedula': forms.TextInput(attrs={'placeholder': 'Inserte la cedula de identidad del cliente',
+        'cedula': forms.TextInput(attrs={'placeholder': 'Inserte la cedula de identidad del trabajador',
         'id':'cedula','class':'form-control'} ),
-        'nombre': forms.TextInput(attrs={'placeholder': 'Inserte el primer o primeros nombres del cliente',
+        'cargo': forms.TextInput(attrs={'placeholder': 'Cargo del trabajador',
+        'id':'cargo','class':'form-control'} ),
+        'nombre': forms.TextInput(attrs={'placeholder': 'Inserte el primer o primeros nombres del trabajador',
         'id':'nombre','class':'form-control'}),
-        'apellido': forms.TextInput(attrs={'class':'form-control','id':'apellido','placeholder':'El apellido del cliente'}),
-        'direccion': forms.TextInput(attrs={'class':'form-control','id':'direccion','placeholder':'Direccion del cliente'}), 
+        'apellido': forms.TextInput(attrs={'class':'form-control','id':'apellido','placeholder':'El apellido del trabajador'}),
+        'direccion': forms.TextInput(attrs={'class':'form-control','id':'direccion','placeholder':'Direccion del trabajador'}), 
         'nacimiento':forms.DateInput(format=('%d-%m-%Y'),attrs={'id':'hasta','class':'form-control','type':'date'} ),
         'telefono':forms.TextInput(attrs={'id':'telefono','class':'form-control',
         'placeholder':'El telefono del cliente'} ),
@@ -168,17 +175,17 @@ class DetallesFacturaFormulario(forms.Form):
 
     descripcion = MisProductos(queryset=productos,widget=forms.Select(attrs={'placeholder': 'El producto a debitar','class':'form-control select-group','onchange':'establecerOperaciones(this)'}))
 
-    vista_precio = MisPrecios(required=False,queryset=productos,label="Precio del producto",widget=forms.Select(attrs={'placeholder': 'El precio del producto','class':'form-control','disabled':'true'}))
+    vista_precio = MisPrecios(required=False,queryset=productos,label=" ",widget=forms.Select(attrs={'style':'display:none','placeholder': 'El precio del producto','class':'form-control','disabled':'true'}))
 
-    cantidad = forms.IntegerField(label="Cantidad a facturar",min_value=0,widget=forms.NumberInput(attrs={'placeholder': 'Introduzca la cantidad del producto','class':'form-control','value':'0','onchange':'calculoPrecio(this);calculoDisponible(this)', 'max':'0'}))
+    cantidad = forms.IntegerField(label="Cantidad a facturar",min_value=0,widget=forms.NumberInput(attrs={'placeholder': 'Introduzca la cantidad del producto','class':'form-control','value':'1','onchange':'calculoPrecio(this);calculoDisponible(this)', 'max':'0'}))
 
     cantidad_disponibles = forms.IntegerField(required=False,label="Stock disponible",min_value=0,widget=forms.NumberInput(attrs={'placeholder': 'Introduzca la cantidad del producto','class':'form-control','value':'0', 'max':'0', 'disabled':'true'}))
 
     selec_disponibles = MisDisponibles(queryset=productos,required=False,widget=forms.Select(attrs={'placeholder': 'El producto a debitar','class':'form-control','disabled':'true','hidden':'true'}))
 
-    subtotal = forms.DecimalField(required=False,label="Sub-total",min_value=0,widget=forms.NumberInput(attrs={'placeholder': 'Monto sub-total','class':'form-control','disabled':'true','value':'0'}))
+    subtotal = forms.DecimalField(required=False,label=" ",min_value=0,widget=forms.NumberInput(attrs={'style':'display:none','placeholder': 'Monto sub-total','class':'form-control','disabled':'true','value':'0'}))
 
-    valor_subtotal = forms.DecimalField(min_value=0,widget=forms.NumberInput(attrs={'placeholder': 'Monto sub-total','class':'form-control','hidden':'true','value':'0'}))      
+    valor_subtotal = forms.DecimalField(min_value=0,widget=forms.NumberInput(attrs={'style':'display:none','placeholder': 'Monto sub-total','class':'form-control','hidden':'true','value':'0'}))      
 
 
 class EmitirPedidoFormulario(forms.Form):
@@ -252,7 +259,8 @@ class ProveedorFormulario(forms.ModelForm):
         'telefono': 'Numero telefonico del proveedor',
         'correo': 'Correo electronico del proveedor',
         'telefono2': 'Segundo numero telefonico',
-        'correo2': 'Segundo correo electronico'
+        'correo2': 'Segundo correo electronico',
+        
         }
         widgets = {
         'cedula': forms.TextInput(attrs={'placeholder': 'Inserte la cedula de identidad del proveedor',

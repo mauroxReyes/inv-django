@@ -41,11 +41,11 @@ function clienteCamposOcultos(esto)
 <article class="content forms-page">
 	    <div class="title-block">
 	    	{% if editar %}
-	      <h3 class="title">Editar cliente</h3>
-          <p class="title-description">Cambie los datos del cliente</p>
+	      <h3 class="title">Editar trabajador</h3>
+          <p class="title-description">Cambie los datos del trabajador</p>
 	    	{% else %}
-          <h3 class="title">Agregar cliente</h3>
-          <p class="title-description">Introduzca los datos del cliente</p>
+          <h3 class="title">Agregar trabajador</h3>
+          <p class="title-description">Introduzca los datos del trabajador</p>
           {% endif %}
         </div>
 <section class="section">
@@ -144,6 +144,13 @@ function clienteCamposOcultos(esto)
 					{{form.direccion.label}}
 				</label>
 					{{form.direccion}}
+			</div>
+
+			<div class="form-group">
+				<label for="{{ form.cargo.name }}">
+					{{form.cargo.label}}
+				</label>
+					{{form.cargo}}
 			</div>
 
 <!-----------------   FIN DE CAMPOS ---------------------------------->

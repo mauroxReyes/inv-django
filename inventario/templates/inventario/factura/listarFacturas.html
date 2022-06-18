@@ -3,8 +3,8 @@
 {% block content %}
                 <article class="content responsive-tables-page">
                     <div class="title-block">
-                        <h1 class="title"> Listar facturas </h1>
-                        <p class="title-description"> Verifique las facturas agregados </p>
+                        <h1 class="title"> Listar actas </h1>
+                        <p class="title-description"> Verifique las actas agregados </p>
                     </div>
                     <section class="section">
                         <div class="row">
@@ -24,7 +24,7 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="card-title-block">
-                                            <h3 class="title">Facturas</h3>
+                                            <h3 class="title">Actas</h3>
                                         </div>
                                         <section class="example">
                                             <div class="table-responsive">
@@ -32,11 +32,11 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Item</th>
-                                                            <th>ID del cliente</th>
+                                                            <th>ID del trabajador</th>
                                                             <th>Fecha</th>
-                                                            <th>Sub-Total</th>
-                                                            <th>Total</th>
-                                                            <th>IVA</th>
+                                                            <th>Nombre del trabajador</th>
+                                                            <th>Telefono del trabajador</th>
+                                                            <th>Dirección del trabajador</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
@@ -46,9 +46,9 @@
                                                             <td>{{ fila.id}}</td>
                                                             <td>{{ fila.cliente.cedula }}</td>
                                                             <td>{{ fila.fecha }}</td>
-                                                            <td>{{ fila.sub_monto }}</td>
-                                                            <td>{{ fila.monto_general }}</td>
-                                                            <td>{{ fila.iva.valor_iva }}</td>
+                                                            <td>{{ fila.cliente.nombre }}</td>
+                                                            <td>{{ fila.cliente.telefono }}</td>
+                                                            <td>{{ fila.cliente.direccion }}</td>
                                                             <td>
 
                                                 <div class="btn-group">
@@ -56,9 +56,9 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
                                                 
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/inventario/verFactura/{{ fila.id}}">Editar/Ver Factura</a>
+                                                    <a class="dropdown-item" href="/inventario/verFactura/{{ fila.id}}">Editar/Ver Acta</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="/inventario/generarFactura/{{ fila.id}}">Generar reporte (CSV)</a>
+                                                    <a style="display:none" class="dropdown-item" href="/inventario/generarFactura/{{ fila.id}}">Generar reporte (CSV)</a>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="/inventario/generarFacturaPDF/{{ fila.id}}">Generar reporte (PDF)</a>
                                                     </div>

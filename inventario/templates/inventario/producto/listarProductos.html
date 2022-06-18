@@ -42,10 +42,12 @@
                                                         <tr>
                                                             <th>Item</th>
                                                             <th>Nombre</th>
-                                                            <th>Precio</th>
+                                                            <th style="display: none;">Precio</th>
                                                             <th>Disponible</th>
                                                             <th>Categoria</th>
-                                                            <th>IVA</th>
+                                                            <th>Modelo</th>
+                                                            <th>Serial</th>
+                                                            <th style="display: none;">IVA</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
@@ -54,7 +56,7 @@
                                                         <tr>
                                                             <td>{{ fila.id}}</td>
                                                             <td>{{ fila.descripcion }}</td>
-                                                            <td>{{ fila.precio }}</td>
+                                                            <td style="display: none;">{{ fila.precio }}</td>
                                                             <td>{{ fila.disponible }}</td>
                                                             <td>
                                                     {% if fila.categoria == '1' %}
@@ -68,7 +70,9 @@
                                                         {%endif%}
 
                                                             </td>
-                                                            <td>
+                                                            <td>{{fila.modelo}}</td>
+                                                            <td>{{fila.serial}}</td>
+                                                            <td style="display: none;">
                                                                 {% if fila.tiene_iva == True %}
                                                                 Si
                                                                 {%endif%}
